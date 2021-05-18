@@ -41,7 +41,7 @@ class AntColony(object):
                 (i + 1) * 100 / self.iteracje))
             if najkrotszaTrasa[1] < ogolnieNajkrotszaTrasa[1]:
                 ogolnieNajkrotszaTrasa = najkrotszaTrasa
-            # self.feromon * self.rozkladFeromonu
+            self.feromon = self.feromon * self.rozkladFeromonu
         return ogolnieNajkrotszaTrasa
 
     def wypuscFeromon(self, wszystkieSciezki, ileNajlepszychMrowek, shortest_path):
