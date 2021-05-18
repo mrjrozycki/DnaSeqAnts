@@ -34,7 +34,8 @@ class AntColony(object):
         for i in range(self.iteracje):
             wszystkieSciezki = self.wygenerujWszystkieSciezki()
             self.wypuscFeromon(
-                wszystkieSciezki, self.ileNajlepszychMrowek, shortest_path=najkrotszaTrasa)
+                wszystkieSciezki, self.ileNajlepszychMrowek,
+                shortest_path=najkrotszaTrasa)
             najkrotszaTrasa = min(wszystkieSciezki, key=lambda x: x[1])
             # print (najkrotszaTrasa)
             print("Obliczono juz: {:.2f}% algorytmu".format(

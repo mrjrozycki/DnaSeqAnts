@@ -39,7 +39,7 @@ def macierzOdlegosci(ciagi):
 
 ciagi = odczytajDane()
 gotowa = macierzOdlegosci(ciagi)
-ant_colony = AntColony(gotowa, 200, 50, 30, 0.7, alpha=1, beta=1)
+ant_colony = AntColony(gotowa, 200, 50, 30, 0.8, alpha=1, beta=1)
 najkrotsza = ant_colony.run()
 # print ("Najkrotsza trasa to: {}".format(najkrotsza))
 pierwsze = True
