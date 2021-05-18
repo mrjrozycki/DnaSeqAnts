@@ -10,7 +10,7 @@ class AntColony(object):
             odleglosci (2D numpy.array)
             ileMrowek (int)
             ileNajlepszychMrowek (int)
-            n_iteration (int): Number of iterations
+            n_iteration (int)
             rozkladFeromonu (float)
             alpha (int or float)
             beta (int or float)
