@@ -7,15 +7,15 @@ class AntColony(object):
     def __init__(self, odleglosci, ileMrowek, ileNajlepszychMrowek, iteracje, rozkladFeromonu, alpha=1, beta=1):
         """
         Args:
-            odleglosci (2D numpy.array): Square matrix of distances. Diagonal is assumed to be np.inf.
-            ileMrowek (int): Number of ants running per iteration
-            ileNajlepszychMrowek (int): Number of best ants who deposit pheromone
+            odleglosci (2D numpy.array)
+            ileMrowek (int)
+            ileNajlepszychMrowek (int)
             n_iteration (int): Number of iterations
-            rozkladFeromonu (float): Rate it which pheromone decays. The pheromone value is multiplied by decay, so 0.95 will lead to decay, 0.5 to much faster decay.
-            alpha (int or float): exponenet on pheromone, higher alpha gives pheromone more weight. Default=1
-            beta (int or float): exponent on distance, higher beta give distance more weight. Default=1
-        Example:
-            ant_colony = AntColony(german_distances, 100, 20, 2000, 0.95, alpha=1, beta=2)          
+            rozkladFeromonu (float)
+            alpha (int or float)
+            beta (int or float)
+        Przyklad:
+            ant_colony = AntColony(german_distances, 100, 20, 2000, 0.95, alpha=1, beta=2)
         """
         self.odleglosci  = odleglosci
         self.feromon = np.ones(self.odleglosci.shape) / len(odleglosci)
@@ -70,7 +70,7 @@ class AntColony(object):
             path.append((prev, move))
             prev = move
             visited.add(move)
-        path.append((prev, start)) # going back to where we started    
+        path.append((prev, start)) # going back to where we started
         return path
 
     def pick_move(self, pheromone, dist, visited):
