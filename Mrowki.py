@@ -5,7 +5,7 @@ from numpy.random import choice as np_choice
 
 class AntColony(object):
 
-    def __init__(self, odleglosci, ileMrowek, ileNajlepszychMrowek, iteracje, rozkladFeromonu, alpha=1, beta=1):
+    def __init__(self, odleglosci, ileMrowek, ileNajlepszychMrowek, iteracje, rozkladFeromonu, alpha=1, beta=1, poczatek=0):
         """
         Args:
             odleglosci (2D numpy.array) - macierz odlegosci
@@ -27,22 +27,36 @@ class AntColony(object):
         self.rozkladFeromonu = rozkladFeromonu
         self.alpha = alpha
         self.beta = beta
+        self.poczatek = poczatek
 
     def run(self):
+        powtorzenie = 0
+        poprzedniaNajkrotsza = 0
         najkrotszaTrasa = None
         ogolnieNajkrotszaTrasa = ("placeholder", np.inf)
         for i in range(self.iteracje):
             wszystkieSciezki = self.wygenerujWszystkieSciezki()
+            # print(self.feromon)
             self.wypuscFeromon(
                 wszystkieSciezki, self.ileNajlepszychMrowek,
                 shortest_path=najkrotszaTrasa)
+            # print(wszystkieSciezki)
             najkrotszaTrasa = min(wszystkieSciezki, key=lambda x: x[1])
             # print (najkrotszaTrasa)
+            if poprzedniaNajkrotsza<najkrotszaTrasa[1]+najkrotszaTrasa[1]*0.1 and poprzedniaNajkrotsza>najkrotszaTrasa[1]-najkrotszaTrasa[1]*0.1:
+                powtorzenie +=1
+            poprzedniaNajkrotsza = najkrotszaTrasa[1]
             print("Obliczono juz: {:.2f}% algorytmu".format(
                 (i + 1) * 100 / self.iteracje))
             if najkrotszaTrasa[1] < ogolnieNajkrotszaTrasa[1]:
                 ogolnieNajkrotszaTrasa = najkrotszaTrasa
             self.feromon = self.feromon * self.rozkladFeromonu
+            # print(powtorzenie)
+            if powtorzenie==2:
+                for i in self.feromon:
+                    i = 0.2
+                powtorzenie=0
+            # print(self.feromon)
         return ogolnieNajkrotszaTrasa
 
     def wypuscFeromon(self, wszystkieSciezki, ileNajlepszychMrowek, shortest_path):
@@ -60,7 +74,7 @@ class AntColony(object):
     def wygenerujWszystkieSciezki(self):
         wszystkieSciezki = []
         for i in range(self.ileMrowek):
-            path = self.wygenerujSciezke(0)
+            path = self.wygenerujSciezke(self.poczatek)
             wszystkieSciezki.append((path, self.podajOdlegloscSciezki(path)))
         return wszystkieSciezki
 
@@ -75,7 +89,7 @@ class AntColony(object):
             path.append((prev, move))
             prev = move
             odwiedzone.add(move)
-        path.append((prev, start))
+        #path.append((prev, start))
         return path
 
     def coDalej(self, feromon, dist, odwiedzone):
