@@ -43,7 +43,7 @@ class AntColony(object):
             # print(wszystkieSciezki)
             najkrotszaTrasa = min(wszystkieSciezki, key=lambda x: x[1])
             # print (najkrotszaTrasa)
-            if poprzedniaNajkrotsza<najkrotszaTrasa[1]+najkrotszaTrasa[1]*0.1 and poprzedniaNajkrotsza>najkrotszaTrasa[1]-najkrotszaTrasa[1]*0.1:
+            if poprzedniaNajkrotsza<najkrotszaTrasa[1]+najkrotszaTrasa[1]*0.3 and poprzedniaNajkrotsza>najkrotszaTrasa[1]-najkrotszaTrasa[1]*0.3:
                 powtorzenie +=1
             poprzedniaNajkrotsza = najkrotszaTrasa[1]
             print("Obliczono juz: {:.2f}% algorytmu".format(
@@ -52,10 +52,11 @@ class AntColony(object):
                 ogolnieNajkrotszaTrasa = najkrotszaTrasa
             self.feromon = self.feromon * self.rozkladFeromonu
             # print(powtorzenie)
-            if powtorzenie==2:
+            if powtorzenie==-1:
                 for i in self.feromon:
                     i = 0.2
                 powtorzenie=0
+                print("Wyczyscilem feromony")
             # print(self.feromon)
         return ogolnieNajkrotszaTrasa
 

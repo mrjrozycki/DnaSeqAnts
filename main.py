@@ -5,7 +5,7 @@ kosztyDodatkowe = []
 
 
 def odczytajDane():
-    f = open("testowe.txt", "r")
+    f = open("dane.txt", "r")
     ciagi = []
     for x in f:
         ciagi.append(x.rstrip())
@@ -49,8 +49,8 @@ def macierzeOdlegosci(ciagi):
     for i in range(dlugosc):
         for j in range(dlugosc):
             macierzPrzod[i][j] = policzOdelegloscPrzod(ciagi[i], ciagi[j])
-            macierzTyl[i][j] = policzOdelegloscTyl(ciagi[i], ciagi[j])
-    print(macierzPrzod, '\n\n', macierzTyl)
+            macierzTyl[i][j] = policzOdelegloscPrzod(ciagi[j], ciagi[i])
+    # print(macierzPrzod, '\n\n', macierzTyl)
     return macierzPrzod, macierzTyl
 
 
@@ -69,7 +69,7 @@ sumyPrzod = np.sum(zZeramiPrzod, axis=1)
 potKonce = []
 koncowySum = max(sumyPrzod)
 for i in range(len(sumyPrzod)):
-    if sumyPrzod[i] == koncowySum:
+    if sumyPrzod[i] > koncowySum-koncowySum*0.01:
         potKonce.append(i)
 
 
@@ -77,36 +77,43 @@ sumyTyl = np.sum(zZeramiTyl, axis=1)
 potPoczatki = []
 pocztkiSum = max(sumyTyl)
 for i in range(len(sumyTyl)):
-    if sumyTyl[i] == pocztkiSum:
+    if sumyTyl[i] > pocztkiSum-pocztkiSum*0.01:
         potPoczatki.append(i)
 
 
 
 for i in potPoczatki:
-    ant_colony = AntColony(przod, 100, 20, 10, 0.8, alpha=1, beta=0.8, poczatek=i)
+    najkrotszaOgolnie = [[0],np.inf]
+    ant_colony = AntColony(przod, 100, 10, 50, 0.8, alpha=4.5, beta=3, poczatek=i)
     najkrotsza = ant_colony.run()
+    if najkrotsza[1]<najkrotszaOgolnie[1]:
+        najkrotszaOgolnie = najkrotsza
     pierwsze = True
-    for i in najkrotsza[0]:
-        pierwsza = i[0]
-        druga = i[1]
-        if pierwsze:
-            print(ciagi[pierwsza], ciagi[druga], end=" ")
-            pierwsze = False
-        else:
-            print(ciagi[druga], end=" ")
-    print("\nKoszt takiej sekwencji od przodu to:", najkrotsza[1] - len(ciagi))
+for i in najkrotszaOgolnie[0]:
+    pierwsza = i[0]
+    druga = i[1]
+    if pierwsze:
+        print(ciagi[pierwsza], ciagi[druga], end=" ")
+        pierwsze = False
+    else:
+        print(ciagi[druga], end=" ")
+
+print("\nKoszt takiej sekwencji od przodu to:", najkrotszaOgolnie[1] - len(ciagi))
 
 for i in potKonce:
-    ant_colony = AntColony(przod, 100, 20, 10, 0.8, alpha=1, beta=0.8, poczatek=i)
+    najkrotszaOgolnie = [[0],np.inf]
+    ant_colony = AntColony(tyl, 100, 10, 50, 0.8, alpha=4.5, beta=3, poczatek=i)
     najkrotsza = ant_colony.run()
-    pierwsze = True
-    # for i in najkrotsza[0]:
-    #     pierwsza = i[0]
-    #     druga = i[1]
-    #     if pierwsze:
-    #         print(ciagi[pierwsza], ciagi[druga], end=" ")
-    #         pierwsze = False
-    #     else:
-    #         print(ciagi[druga], end=" ")
-    print(najkrotsza[0])
-    print("\nKoszt takiej sekwencji od tylu to:", najkrotsza[1] - len(ciagi))
+    if najkrotsza[1]<najkrotszaOgolnie[1]:
+        najkrotszaOgolnie = najkrotsza
+pierwsze = True
+for i in najkrotszaOgolnie[0]:
+    pierwsza = i[0]
+    druga = i[1]
+    if pierwsze:
+        print(ciagi[pierwsza], ciagi[druga], end=" ")
+        pierwsze = False
+    else:
+        print(ciagi[druga], end=" ")
+# print(najkrotsza[0])
+print("\nKoszt takiej sekwencji od tylu to:", najkrotszaOgolnie[1] - len(ciagi))
