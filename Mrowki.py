@@ -42,7 +42,7 @@ class AntColony(object):
                 shortest_path=najkrotszaTrasa)
             # print(wszystkieSciezki)
             najkrotszaTrasa = min(wszystkieSciezki, key=lambda x: x[1])
-            # print (najkrotszaTrasa)
+            # print(najkrotszaTrasa)
             print("Obliczono juz: {:.2f}% algorytmu".format(
                 (i + 1) * 100 / self.iteracje))
             if najkrotszaTrasa[1] < ogolnieNajkrotszaTrasa[1]:
