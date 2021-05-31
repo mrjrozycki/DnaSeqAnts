@@ -5,7 +5,7 @@ kosztyDodatkowe = []
 
 
 def odczytajDane():
-    f = open("dane3.txt", "r")
+    f = open("dane.txt", "r")
     ciagi = []
     for x in f:
         ciagi.append(x.rstrip())
@@ -102,7 +102,7 @@ for i in potPoczatki:
     print("sprawdzanie nukleotydu początkowego nr ", poczatki)
     poczatki+=1
     najkrotszaOgolnie = [[0],np.inf]
-    ant_colony = AntColony(przod, 100, 20, 30, 0.8, alpha=5, beta=3, poczatek=i)
+    ant_colony = AntColony(przod, 100, 20, 30, 0.8, alpha=5, beta=3, poczatek=i, ktoraStrona=1)
     najkrotsza = ant_colony.run()
     if najkrotsza[1]<najkrotszaOgolnie[1]:
         najkrotszaOgolnie = najkrotsza
@@ -116,13 +116,14 @@ for i in najkrotszaOgolnie[0]:
     else:
         print(ciagi[druga], end=" ")
 
-print("\nKoszt takiej sekwencji od przodu to:", najkrotszaOgolnie[1] - len(ciagi))
+print("\nKoszt takiej sekwencji od przodu to:", najkrotszaOgolnie[1] - len(ciagi)+1)
 
 konce = 1
 for i in potKonce:
     print("sprawdzanie nukleotydu koncowego nr ", konce)
+    konce+=1
     najkrotszaOgolnie = [[0],np.inf]
-    ant_colony = AntColony(tyl, 100, 20, 30, 0.8, alpha=5, beta=3, poczatek=i)
+    ant_colony = AntColony(tyl, 100, 20, 30, 0.8, alpha=5, beta=3, poczatek=i, ktoraStrona=-1)
     najkrotsza = ant_colony.run()
     if najkrotsza[1]<najkrotszaOgolnie[1]:
         najkrotszaOgolnie = najkrotsza
@@ -136,4 +137,4 @@ for i in najkrotszaOgolnie[0]:
     else:
         print(ciagi[druga], end=" ")
 # print(najkrotsza[0])
-print("\nKoszt takiej sekwencji od tylu to:", najkrotszaOgolnie[1] - len(ciagi))
+print("\nKoszt takiej sekwencji od tylu to:", najkrotszaOgolnie[1] - len(ciagi)+1)
