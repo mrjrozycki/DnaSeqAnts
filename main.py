@@ -71,29 +71,8 @@ def zsumujWartosciIPokazPotencjalne(macierz, ciagi):
 
 ciagi = odczytajDane()
 przod, tyl = macierzeOdlegosci(ciagi)
-# zZeramiPrzod = np.zeros((len(ciagi), len(ciagi)))
-# zZeramiTyl = np.zeros((len(ciagi), len(ciagi)))
-# for i in range(len(przod)):
-#     for j in range(len(przod[i])):
-#         if przod[i][j] != np.inf:
-#             zZeramiPrzod[i][j] = przod[i][j]
-#         if tyl[i][j] != np.inf:
-#             zZeramiTyl[i][j] = tyl[i][j]
-#
-# sumyPrzod = np.sum(zZeramiPrzod, axis=1)
-# potKonce = []
-# koncowySum = max(sumyPrzod)
-# for i in range(len(sumyPrzod)):
-#     if sumyPrzod[i] > koncowySum-koncowySum*0.01:
-#         potKonce.append(i)
-#
-#
-# sumyTyl = np.sum(zZeramiTyl, axis=1)
-# potPoczatki = []
-# pocztkiSum = max(sumyTyl)
-# for i in range(len(sumyTyl)):
-#     if sumyTyl[i] > pocztkiSum-pocztkiSum*0.01:
-#         potPoczatki.append(i)
+
+
 potPoczatki = zsumujWartosciIPokazPotencjalne(tyl, ciagi)
 potKonce = zsumujWartosciIPokazPotencjalne(przod, ciagi)
 
@@ -103,8 +82,8 @@ for i in potPoczatki:
     # print("sprawdzanie nukleotydu początkowego nr ", poczatki)
     poczatki += 1
     najkrotszaOgolnie = [[0], np.inf]
-    ant_colony = AntColony(przod, 100, 20, 30, 0.8, alpha=5,
-                           beta=3, poczatek=i, ktoraStrona=1)
+    ant_colony = AntColony(przod, 6, 2, 30, 0.8, alpha=5,
+                           beta=3, poczatek=i, ktoraStrona=1, maxDlugosc=12)
     najkrotsza = ant_colony.run()
     if najkrotsza[1] < najkrotszaOgolnie[1]:
         najkrotszaOgolnie = najkrotsza
@@ -119,7 +98,7 @@ for i in najkrotszaOgolnie[0]:
         print(ciagi[druga], end=" ")
 
 print("\nKoszt takiej sekwencji od przodu to:",
-      najkrotszaOgolnie[1] - len(ciagi) + 1)
+      najkrotszaOgolnie[1] - len(najkrotszaOgolnie[0]) + 1)
 
 konce = 1
 for i in potKonce:
@@ -127,7 +106,7 @@ for i in potKonce:
     konce += 1
     najkrotszaOgolnie = [[0], np.inf]
     ant_colony = AntColony(tyl, 100, 20, 30, 0.8, alpha=5,
-                           beta=3, poczatek=i, ktoraStrona=-1)
+                           beta=3, poczatek=i, ktoraStrona=-1, maxDlugosc=12)
     najkrotsza = ant_colony.run()
     if najkrotsza[1] < najkrotszaOgolnie[1]:
         najkrotszaOgolnie = najkrotsza
@@ -142,4 +121,4 @@ for i in najkrotszaOgolnie[0]:
         print(ciagi[druga], end=" ")
 # print(najkrotsza[0])
 print("\nKoszt takiej sekwencji od tylu to:",
-      najkrotszaOgolnie[1] - len(ciagi) + 1)
+      najkrotszaOgolnie[1] - len(najkrotszaOgolnie[0]) + 1)
