@@ -82,7 +82,7 @@ for i in potPoczatki:
     # print("sprawdzanie nukleotydu początkowego nr ", poczatki)
     poczatki += 1
     najkrotszaOgolnie = [[0], np.inf]
-    ant_colony = AntColony(przod, 100,20 , 30, 0.8, alpha=5,
+    ant_colony = AntColony(przod, 100, 20, 30, 0.8, alpha=5,
                            beta=3, poczatek=i, ktoraStrona=1, maxDlugosc=209)
     najkrotsza = ant_colony.run()
     if najkrotsza[1] < najkrotszaOgolnie[1]:
