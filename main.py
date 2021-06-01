@@ -71,29 +71,6 @@ def zsumujWartosciIPokazPotencjalne(macierz, ciagi):
 
 ciagi = odczytajDane()
 przod, tyl = macierzeOdlegosci(ciagi)
-# zZeramiPrzod = np.zeros((len(ciagi), len(ciagi)))
-# zZeramiTyl = np.zeros((len(ciagi), len(ciagi)))
-# for i in range(len(przod)):
-#     for j in range(len(przod[i])):
-#         if przod[i][j] != np.inf:
-#             zZeramiPrzod[i][j] = przod[i][j]
-#         if tyl[i][j] != np.inf:
-#             zZeramiTyl[i][j] = tyl[i][j]
-#
-# sumyPrzod = np.sum(zZeramiPrzod, axis=1)
-# potKonce = []
-# koncowySum = max(sumyPrzod)
-# for i in range(len(sumyPrzod)):
-#     if sumyPrzod[i] > koncowySum-koncowySum*0.01:
-#         potKonce.append(i)
-#
-#
-# sumyTyl = np.sum(zZeramiTyl, axis=1)
-# potPoczatki = []
-# pocztkiSum = max(sumyTyl)
-# for i in range(len(sumyTyl)):
-#     if sumyTyl[i] > pocztkiSum-pocztkiSum*0.01:
-#         potPoczatki.append(i)
 potPoczatki = zsumujWartosciIPokazPotencjalne(tyl, ciagi)
 potKonce = zsumujWartosciIPokazPotencjalne(przod, ciagi)
 
