@@ -5,7 +5,7 @@ kosztyDodatkowe = []
 
 
 def odczytajDane():
-    f = open("dane.txt", "r")
+    f = open("testowe.txt", "r")
     ciagi = []
     for x in f:
         ciagi.append(x.rstrip())

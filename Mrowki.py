@@ -5,7 +5,7 @@ from numpy.random import choice as np_choice
 
 class AntColony(object):
 
-    def __init__(self, odleglosci, ileMrowek, ileNajlepszychMrowek, iteracje, rozkladFeromonu, alpha=1, beta=1, poczatek=0, ktoraStrona = 1):
+    def __init__(self, odleglosci, ileMrowek, ileNajlepszychMrowek, iteracje, rozkladFeromonu, alpha=1, beta=1, poczatek=0, ktoraStrona=1):
         """
         Args:
             odleglosci (2D numpy.array) - macierz odlegosci
@@ -64,7 +64,8 @@ class AntColony(object):
                     self.feromon[i] += 0.25
                 # print(self.feromon)
                 self.znajdzNajlepszyPoczatek(najkrotszaTrasa[0])
-                print("Resetuje wartosci feromonow, a aktualny wierzcholek startowy to: ", self.poczatek)
+                print(
+                    "Resetuje wartosci feromonow, a aktualny wierzcholek startowy to: ", self.poczatek)
         return ogolnieNajkrotszaTrasa
 
     def wypuscFeromon(self, wszystkieSciezki, ileNajlepszychMrowek, shortest_path):
@@ -121,8 +122,8 @@ class AntColony(object):
                 if wierzcholki[l][0] == k[0]:
                     wierzcholki[l][1] = self.odleglosci[wierzcholki[l][0]][k[1]]
                     wierzcholki[l-1][2] = self.odleglosci[wierzcholki[l][0]][k[1]]
-        najgorszyKoniec = max(wierzcholki, key=lambda x: x[1]-x[2])
-        najgorszyPoczatek = max(wierzcholki, key=lambda x: x[2]-x[1])
+        najgorszyKoniec = max(wierzcholki, key=lambda x: x[1] - x[2])
+        najgorszyPoczatek = max(wierzcholki, key=lambda x: x[2] - x[1])
         if self.ktoraStrona == -1:
             self.poczatek = najgorszyKoniec[0]
             # print(wierzcholki, najgorszyKoniec)
