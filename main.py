@@ -33,7 +33,7 @@ def policzOdelegloscTyl(a, b):
         return np.inf
     for i in range(len(a)):
         # print(a[0:len(a)-i],"\n",b[i:len(b)])
-        if a[0:len(a)-i] == b[i:len(b)]:
+        if a[0:len(a) - i] == b[i:len(b)]:
             # print(i)
             break
     if i == 9:
@@ -53,6 +53,7 @@ def macierzeOdlegosci(ciagi):
     # print(macierzPrzod, '\n\n', macierzTyl)
     return macierzPrzod, macierzTyl
 
+
 def zsumujWartosciIPokazPotencjalne(macierz, ciagi):
     zZerami = np.zeros((len(ciagi), len(ciagi)))
     for i in range(len(macierz)):
@@ -63,7 +64,7 @@ def zsumujWartosciIPokazPotencjalne(macierz, ciagi):
     potencjalne = []
     maxSum = max(sumy)
     for i in range(len(sumy)):
-        if sumy[i] > maxSum-maxSum*0.01:
+        if sumy[i] > maxSum - maxSum * 0.01:
             potencjalne.append(i)
     return potencjalne
 
@@ -99,12 +100,13 @@ potKonce = zsumujWartosciIPokazPotencjalne(przod, ciagi)
 
 poczatki = 1
 for i in potPoczatki:
-    print("sprawdzanie nukleotydu początkowego nr ", poczatki)
-    poczatki+=1
-    najkrotszaOgolnie = [[0],np.inf]
-    ant_colony = AntColony(przod, 100, 20, 30, 0.8, alpha=5, beta=3, poczatek=i, ktoraStrona=1)
+    # print("sprawdzanie nukleotydu początkowego nr ", poczatki)
+    poczatki += 1
+    najkrotszaOgolnie = [[0], np.inf]
+    ant_colony = AntColony(przod, 100, 20, 30, 0.8, alpha=5,
+                           beta=3, poczatek=i, ktoraStrona=1)
     najkrotsza = ant_colony.run()
-    if najkrotsza[1]<najkrotszaOgolnie[1]:
+    if najkrotsza[1] < najkrotszaOgolnie[1]:
         najkrotszaOgolnie = najkrotsza
     pierwsze = True
 for i in najkrotszaOgolnie[0]:
@@ -116,16 +118,18 @@ for i in najkrotszaOgolnie[0]:
     else:
         print(ciagi[druga], end=" ")
 
-print("\nKoszt takiej sekwencji od przodu to:", najkrotszaOgolnie[1] - len(ciagi)+1)
+print("\nKoszt takiej sekwencji od przodu to:",
+      najkrotszaOgolnie[1] - len(ciagi) + 1)
 
 konce = 1
 for i in potKonce:
-    print("sprawdzanie nukleotydu koncowego nr ", konce)
-    konce+=1
-    najkrotszaOgolnie = [[0],np.inf]
-    ant_colony = AntColony(tyl, 100, 20, 30, 0.8, alpha=5, beta=3, poczatek=i, ktoraStrona=-1)
+    # print("sprawdzanie nukleotydu koncowego nr ", konce)
+    konce += 1
+    najkrotszaOgolnie = [[0], np.inf]
+    ant_colony = AntColony(tyl, 100, 20, 30, 0.8, alpha=5,
+                           beta=3, poczatek=i, ktoraStrona=-1)
     najkrotsza = ant_colony.run()
-    if najkrotsza[1]<najkrotszaOgolnie[1]:
+    if najkrotsza[1] < najkrotszaOgolnie[1]:
         najkrotszaOgolnie = najkrotsza
 pierwsze = True
 for i in najkrotszaOgolnie[0]:
@@ -137,4 +141,5 @@ for i in najkrotszaOgolnie[0]:
     else:
         print(ciagi[druga], end=" ")
 # print(najkrotsza[0])
-print("\nKoszt takiej sekwencji od tylu to:", najkrotszaOgolnie[1] - len(ciagi)+1)
+print("\nKoszt takiej sekwencji od tylu to:",
+      najkrotszaOgolnie[1] - len(ciagi) + 1)

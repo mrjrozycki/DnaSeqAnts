@@ -37,7 +37,9 @@ class AntColony(object):
         poprzedniaNajkrotsza = 0
         najkrotszaTrasa = None
         ogolnieNajkrotszaTrasa = ("placeholder", np.inf)
+        print("Aktualny wierzcholek startowy to: ", self.poczatek)
         for i in range(self.iteracje):
+            # print("Aktualny wierzcholek startowy to: ", self.poczatek)
             wszystkieSciezki = self.wygenerujWszystkieSciezki()
             # print(self.feromon)
             self.wypuscFeromon(
@@ -56,20 +58,20 @@ class AntColony(object):
                 ogolnieNajkrotszaTrasa = najkrotszaTrasa
             self.feromon = self.feromon * self.rozkladFeromonu
             if powtorzenie == round(self.iteracje * 0.15):
-                print("Resetuje", powtorzenie)
                 powtorzenie = 0
                 self.feromon = self.feromon * 0
                 for i in range(len(self.feromon)):
                     self.feromon[i] += 0.25
                 # print(self.feromon)
                 self.znajdzNajlepszyPoczatek(najkrotszaTrasa[0])
+                print("Resetuje wartosci feromonow, a aktualny wierzcholek startowy to: ", self.poczatek)
         return ogolnieNajkrotszaTrasa
 
     def wypuscFeromon(self, wszystkieSciezki, ileNajlepszychMrowek, shortest_path):
         posortowanaSciezka = sorted(wszystkieSciezki, key=lambda x: x[1])
         for path, dist in posortowanaSciezka[:ileNajlepszychMrowek]:
             for move in path:
-                self.feromon[move] += 1.0 / self.odleglosci[move]
+                self.feromon[move] += 0.7 / self.odleglosci[move]
 
     def podajOdlegloscSciezki(self, path):
         pelenDystans = 0
