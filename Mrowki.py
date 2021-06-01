@@ -107,7 +107,7 @@ class AntColony(object):
         odwiedzone = set()
         odwiedzone.add(start)
         prev = start
-        dlugosc += 6
+        dlugosc += 10
         for i in range(len(self.odleglosci) - 1):
             move = self.coDalej(
                 self.feromon[prev], self.odleglosci[prev], odwiedzone)
