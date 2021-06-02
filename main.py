@@ -1,8 +1,6 @@
 import numpy as np
 from Mrowki import AntColony
 
-kosztyDodatkowe = []
-
 
 def odczytajDane():
     f = open("dane.txt", "r")
@@ -73,7 +71,6 @@ ciagi = odczytajDane()
 przod, tyl = macierzeOdlegosci(ciagi)
 potPoczatki = zsumujWartosciIPokazPotencjalne(tyl, ciagi)
 potKonce = zsumujWartosciIPokazPotencjalne(przod, ciagi)
-
 
 poczatki = 1
 for i in potPoczatki:
