@@ -31,6 +31,8 @@ class AntColony(object):
         self.beta = beta
         self.poczatek = poczatek
         self.ktoraStrona = ktoraStrona
+        self.parametrFeromonu = 0.1
+        self.dodawanieFeromonu = 0.9 / self.iteracje
 
     def run(self):
         powtorzenie = 0
