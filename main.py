@@ -5,7 +5,7 @@ kosztyDodatkowe = []
 
 
 def odczytajDane():
-    f = open("dane2.txt", "r")
+    f = open("dane.txt", "r")
     ciagi = []
     for x in f:
         ciagi.append(x.rstrip())
@@ -36,10 +36,10 @@ def policzOdelegloscTyl(a, b):
         if a[0:len(a) - i] == b[i:len(b)]:
             # print(i)
             break
-    if i == 9:
-        return i + 10
-    else:
-        return i
+    # if i == 9:
+    #     return i + 10
+    # else:
+    return i
 
 
 def macierzeOdlegosci(ciagi):
@@ -81,7 +81,7 @@ for i in potPoczatki:
     poczatki += 1
     najkrotszaOgolnie = [[0], np.inf]
     ant_colony = AntColony(przod, 100, 20, 30, 0.8, alpha=5,
-                           beta=3, poczatek=i, ktoraStrona=1)
+                           beta=2, poczatek=i, ktoraStrona=1)
     najkrotsza = ant_colony.run()
     if najkrotsza[1] < najkrotszaOgolnie[1]:
         najkrotszaOgolnie = najkrotsza
@@ -104,7 +104,7 @@ for i in potKonce:
     konce += 1
     najkrotszaOgolnie = [[0], np.inf]
     ant_colony = AntColony(tyl, 100, 20, 30, 0.8, alpha=5,
-                           beta=3, poczatek=i, ktoraStrona=-1)
+                           beta=2, poczatek=i, ktoraStrona=-1)
     najkrotsza = ant_colony.run()
     if najkrotsza[1] < najkrotszaOgolnie[1]:
         najkrotszaOgolnie = najkrotsza
