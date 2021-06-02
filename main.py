@@ -3,7 +3,7 @@ from Mrowki import AntColony
 
 
 def odczytajDane():
-    f = open("dane.txt", "r")
+    f = open("dane2.txt", "r")
     ciagi = []
     for x in f:
         ciagi.append(x.rstrip())
@@ -20,10 +20,10 @@ def policzOdelegloscPrzod(a, b):
         if a[i:len(a)] == b[0:len(b) - i]:
             # print(i)
             break
-    if i == 9:
-        return i + 10
-    else:
-        return i
+    # if i == 9:
+    #     return i + 10
+    # else:
+    return i
 
 
 def policzOdelegloscTyl(a, b):
@@ -58,11 +58,11 @@ def zsumujWartosciIPokazPotencjalne(macierz, ciagi):
         for j in range(len(macierz[i])):
             if macierz[i][j] != np.inf:
                 zZerami[i][j] = macierz[i][j]
-    sumy = np.sum(zZerami, axis=1)
+    sumy = np.mean(zZerami, axis=1)
     potencjalne = []
     maxSum = max(sumy)
     for i in range(len(sumy)):
-        if sumy[i] > maxSum - maxSum * 0.01:
+        if sumy[i] > maxSum - maxSum * 0.001:
             potencjalne.append(i)
     return potencjalne
 
@@ -78,7 +78,7 @@ for i in potPoczatki:
     # poczatki += 1
     najkrotszaOgolnie = [[0], np.inf]
     ant_colony = AntColony(przod, 100, 20, 30, 0.8, alpha=5,
-                           beta=3, poczatek=i, ktoraStrona=1, maxDlugosc=209)
+                           beta=3, poczatek=i, ktoraStrona=1, maxDlugosc=409)
     najkrotsza = ant_colony.run()
     if najkrotsza[1] < najkrotszaOgolnie[1]:
         najkrotszaOgolnie = najkrotsza
@@ -110,7 +110,7 @@ for i in potKonce:
     # konce += 1
     najkrotszaOgolnie = [[0], np.inf]
     ant_colony = AntColony(tyl, 100, 20, 30, 0.8, alpha=5,
-                           beta=3, poczatek=i, ktoraStrona=-1, maxDlugosc=209)
+                           beta=3, poczatek=i, ktoraStrona=-1, maxDlugosc=409)
     najkrotsza = ant_colony.run()
     if najkrotsza[1] < najkrotszaOgolnie[1]:
         najkrotszaOgolnie = najkrotsza

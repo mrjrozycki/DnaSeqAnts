@@ -49,8 +49,14 @@ class AntColony(object):
             self.wypuscFeromon(
                 wszystkieSciezki, self.ileNajlepszychMrowek,
                 shortest_path=najkrotszaTrasa)
+            gotowe = self.utnijKonceDoN(wszystkieSciezki)
+            najdluzsza = max(gotowe, key=lambda x: len(x[0]))
+            najdluzszeSciezki = []
+            for k in gotowe:
+                if len(k[0]) == len(najdluzsza[0]):
+                    najdluzszeSciezki.append(k)
             # print(wszystkieSciezki)
-            najkrotszaTrasa = min(wszystkieSciezki, key=lambda x: x[1])
+            najkrotszaTrasa = min(najdluzszeSciezki, key=lambda x: x[1])
             # print(poprzedniaNajkrotsza >= najkrotszaTrasa[1]-najkrotszaTrasa[1]*0.1, poprzedniaNajkrotsza <= najkrotszaTrasa[1]+najkrotszaTrasa[1]*0.1)
             if poprzedniaNajkrotsza >= najkrotszaTrasa[1] - najkrotszaTrasa[1] * 0.1 and poprzedniaNajkrotsza <= najkrotszaTrasa[1] + najkrotszaTrasa[1] * 0.1:
                 powtorzenie += 1
@@ -76,9 +82,24 @@ class AntColony(object):
         return ogolnieNajkrotszaTrasa
 
     def utnijKonceDoN(self, wszystkieSciezki):
+        gotowe = []
         for i in wszystkieSciezki:
-            if i[1]>maxDlugosc:
-                pass
+            poprawiona = False
+            l = 1
+            dlugosc = self.podajOdlegloscSciezki(i[0])
+            if dlugosc<=self.maxDlugosc:
+                poprawiona = True
+                gotowe.append(i)
+            else:
+                while not(poprawiona):
+                    x = i[0][:-l]
+                    dlugosc = self.podajOdlegloscSciezki(x)
+                    l+=1
+                    if dlugosc<=self.maxDlugosc:
+                        poprawiona = True
+                gotowe.append((x, dlugosc))
+        # print(gotowe)
+        return gotowe
 
     def wypuscFeromon(self, wszystkieSciezki, ileNajlepszychMrowek, shortest_path):
         posortowanaSciezka = sorted(wszystkieSciezki, key=lambda x: x[1])
