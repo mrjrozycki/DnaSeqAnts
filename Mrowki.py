@@ -75,6 +75,11 @@ class AntColony(object):
             # print(powtorzenie)
         return ogolnieNajkrotszaTrasa
 
+    def utnijKonceDoN(self, wszystkieSciezki):
+        for i in wszystkieSciezki:
+            if i[1]>maxDlugosc:
+                pass
+
     def wypuscFeromon(self, wszystkieSciezki, ileNajlepszychMrowek, shortest_path):
         posortowanaSciezka = sorted(wszystkieSciezki, key=lambda x: x[1])
         for path, dist in posortowanaSciezka[:ileNajlepszychMrowek]:
