@@ -87,15 +87,24 @@ for i in potPoczatki:
     najkrotsza = ant_colony.run()
     if najkrotsza[1] < najkrotszaOgolnie[1]:
         najkrotszaOgolnie = najkrotsza
-    pierwsze = True
+ile = 1
+ciagKoncowy = ""
+pierwszyWierzcholek = najkrotszaOgolnie[0][0][0]
+ciagKoncowy += ciagi[pierwszyWierzcholek]
+# print(ciagKoncowy)
 for i in najkrotszaOgolnie[0]:
-    pierwsza = i[0]
-    druga = i[1]
-    if pierwsze:
-        print(ciagi[pierwsza], ciagi[druga], end=" ")
-        pierwsze = False
-    else:
-        print(ciagi[druga], end=" ")
+    dodane = 0
+    for k in range(len(ciagi[i[0]])):
+        if ciagi[i[0]][k:len(ciagi[i[0]])] == ciagi[i[1]][0:len(ciagi[i[1]]) - k]:
+            ciagKoncowy += ("|"+ciagi[i[1]][len(ciagi[i[1]]) - k:len(ciagi[i[1]])])
+            dodane = 1
+            ile+=1
+            break
+    if not(dodane):
+        ciagKoncowy += ("|"+ciagi[i[1]])
+        dodane = 1
+        ile+=1
+print("\n"+ ciagKoncowy, len(ciagKoncowy.replace("|","")), ile)
 
 print("\nKoszt takiej sekwencji od przodu to:",
       najkrotszaOgolnie[1] - len(najkrotszaOgolnie[0]))
