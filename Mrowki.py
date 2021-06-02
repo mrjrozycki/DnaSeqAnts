@@ -52,8 +52,8 @@ class AntColony(object):
                 powtorzenie += 1
             poprzedniaNajkrotsza = najkrotszaTrasa[1]
             # print(najkrotszaTrasa)
-            print("Obliczono juz: {:.2f}% algorytmu".format(
-                (i + 1) * 100 / self.iteracje))
+            # print("Obliczono juz: {:.2f}% algorytmu".format(
+                # (i + 1) * 100 / self.iteracje))
             if najkrotszaTrasa[1] < ogolnieNajkrotszaTrasa[1]:
                 ogolnieNajkrotszaTrasa = najkrotszaTrasa
             self.feromon = self.feromon * self.rozkladFeromonu
@@ -62,10 +62,9 @@ class AntColony(object):
                 self.feromon = self.feromon * 0
                 for i in range(len(self.feromon)):
                     self.feromon[i] += 0.25
-                # print(self.feromon)
+                # print(najkrotszaTrasa[0])
                 self.znajdzNajlepszyPoczatek(najkrotszaTrasa[0])
-                print(
-                    "Resetuje wartosci feromonow, a aktualny wierzcholek startowy to: ", self.poczatek)
+                print("Resetuje wartosci feromonow, a aktualny wierzcholek startowy to: ", self.poczatek)
         return ogolnieNajkrotszaTrasa
 
     def wypuscFeromon(self, wszystkieSciezki, ileNajlepszychMrowek, shortest_path):
@@ -121,8 +120,9 @@ class AntColony(object):
             for l in range(len(wierzcholki)):
                 if wierzcholki[l][0] == k[0]:
                     wierzcholki[l][1] = self.odleglosci[wierzcholki[l][0]][k[1]]
-                    wierzcholki[l-1][2] = self.odleglosci[wierzcholki[l][0]][k[1]]
-        najgorszyKoniec = max(wierzcholki, key=lambda x: x[1] - x[2])
+                    wierzcholki[l+1][2] = self.odleglosci[wierzcholki[l][0]][k[1]]
+                    # print(wierzcholki[l][0], k[0])
+        najgorszyKoniec = max(wierzcholki, key=lambda x: x[2] - x[1])
         najgorszyPoczatek = max(wierzcholki, key=lambda x: x[2] - x[1])
         if self.ktoraStrona == -1:
             self.poczatek = najgorszyKoniec[0]

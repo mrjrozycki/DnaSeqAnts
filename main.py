@@ -5,7 +5,7 @@ kosztyDodatkowe = []
 
 
 def odczytajDane():
-    f = open("testowe.txt", "r")
+    f = open("dane2.txt", "r")
     ciagi = []
     for x in f:
         ciagi.append(x.rstrip())
@@ -96,7 +96,7 @@ for i in najkrotszaOgolnie[0]:
         print(ciagi[druga], end=" ")
 
 print("\nKoszt takiej sekwencji od przodu to:",
-      najkrotszaOgolnie[1] - len(ciagi) + 1)
+      najkrotszaOgolnie[1] - len(najkrotszaOgolnie[0]))
 
 konce = 1
 for i in potKonce:
@@ -119,4 +119,4 @@ for i in najkrotszaOgolnie[0]:
         print(ciagi[druga], end=" ")
 # print(najkrotsza[0])
 print("\nKoszt takiej sekwencji od tylu to:",
-      najkrotszaOgolnie[1] - len(ciagi) + 1)
+      najkrotszaOgolnie[1] - len(najkrotszaOgolnie[0]))
