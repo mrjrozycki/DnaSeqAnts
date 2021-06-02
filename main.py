@@ -5,7 +5,7 @@ kosztyDodatkowe = []
 
 
 def odczytajDane():
-    f = open("dane.txt", "r")
+    f = open("dane2.txt", "r")
     ciagi = []
     for x in f:
         ciagi.append(x.rstrip())
@@ -107,7 +107,7 @@ for i in najkrotszaOgolnie[0]:
 print("\n"+ ciagKoncowy, len(ciagKoncowy.replace("|","")), ile)
 
 print("\nKoszt takiej sekwencji od przodu to:",
-      najkrotszaOgolnie[1] - len(najkrotszaOgolnie[0]))
+      najkrotszaOgolnie[1] + len(ciagi[pierwszyWierzcholek]))
 
 konce = 1
 for i in potKonce:
@@ -143,4 +143,4 @@ for i in trasaGotowa[0]:
         ile+=1
 print("\n"+ ciagKoncowy, len(ciagKoncowy.replace("|","")), ile)
 print("\nKoszt takiej sekwencji od tylu to:",
-      najkrotszaOgolnie[1] - len(najkrotszaOgolnie[0]))
+      najkrotszaOgolnie[1] + len(ciagi[pierwszyWierzcholek]))
