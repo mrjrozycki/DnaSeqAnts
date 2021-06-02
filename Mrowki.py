@@ -31,6 +31,7 @@ class AntColony(object):
         self.poczatek = poczatek
         self.ktoraStrona = ktoraStrona
         self.maxDlugosc = maxDlugosc
+        self.ostatniaMaxDlugosc = np.inf
 
     def run(self):
         powtorzenie = 0
@@ -40,6 +41,7 @@ class AntColony(object):
         print("Aktualny wierzcholek startowy to: ", self.poczatek)
         najdluzsza = 0
         for i in range(self.iteracje):
+            ostatni = 0
             # print("Aktualny wierzcholek startowy to: ", self.poczatek)
             wszystkieSciezki = self.wygenerujWszystkieSciezki()
             najdluzszeSciezki = []
@@ -67,15 +69,18 @@ class AntColony(object):
                 if najkrotszaTrasa[1] < ogolnieNajkrotszaTrasa[1]:
                     ogolnieNajkrotszaTrasa = najkrotszaTrasa
                 self.feromon = self.feromon * self.rozkladFeromonu
-                if powtorzenie == round(self.iteracje * 0.15):
+                if powtorzenie == round(self.iteracje * 0.15) or ostatni:
                     powtorzenie = 0
                     self.feromon = self.feromon * 0
                     for i in range(len(self.feromon)):
                         self.feromon[i] += 0.25
                     # print(self.feromon)
                     self.znajdzNajlepszyPoczatek(najkrotszaTrasa[0])
-                    # print(
-                        # "Resetuje wartosci feromonow, a aktualny wierzcholek startowy to: ", self.poczatek)
+                    print(
+                        "Resetuje wartosci feromonow, a aktualny wierzcholek startowy to: ", self.poczatek)
+                if powtorzenie == round(self.iteracje * 0.15)-1:
+                    self.ostatniaMaxDlugosc = self.maxDlugosc
+                    ostatni = 1
             except:
                 pass
         return ogolnieNajkrotszaTrasa
@@ -102,17 +107,16 @@ class AntColony(object):
         return wszystkieSciezki
 
     def wygenerujSciezke(self, start):
-        dlugosc = 0
         path = []
         odwiedzone = set()
         odwiedzone.add(start)
         prev = start
-        dlugosc += 10
+        dlugosc = 10
         for i in range(len(self.odleglosci) - 1):
             move = self.coDalej(
                 self.feromon[prev], self.odleglosci[prev], odwiedzone)
             dlugosc += self.odleglosci[(prev, move)]
-            if dlugosc>self.maxDlugosc:
+            if dlugosc>=self.ostatniaMaxDlugosc:
                 break
             path.append((prev, move))
             # print(path)
