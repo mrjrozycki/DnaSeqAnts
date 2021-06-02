@@ -52,8 +52,8 @@ class AntColony(object):
                 powtorzenie += 1
             poprzedniaNajkrotsza = najkrotszaTrasa[1]
             # print(najkrotszaTrasa)
-            # print("Obliczono juz: {:.2f}% algorytmu".format(
-                # (i + 1) * 100 / self.iteracje))
+            print("Obliczono juz: {:.2f}% algorytmu".format(
+                (i + 1) * 100 / self.iteracje))
             if najkrotszaTrasa[1] < ogolnieNajkrotszaTrasa[1]:
                 ogolnieNajkrotszaTrasa = najkrotszaTrasa
             self.feromon = self.feromon * self.rozkladFeromonu

@@ -5,7 +5,7 @@ kosztyDodatkowe = []
 
 
 def odczytajDane():
-    f = open("dane2.txt", "r")
+    f = open("dane.txt", "r")
     ciagi = []
     for x in f:
         ciagi.append(x.rstrip())
@@ -85,7 +85,7 @@ for i in potPoczatki:
     najkrotsza = ant_colony.run()
     if najkrotsza[1] < najkrotszaOgolnie[1]:
         najkrotszaOgolnie = najkrotsza
-pierwsze = True
+ile = 1
 ciagKoncowy = ""
 pierwszyWierzcholek = najkrotszaOgolnie[0][0][0]
 ciagKoncowy += ciagi[pierwszyWierzcholek]
@@ -96,11 +96,13 @@ for i in najkrotszaOgolnie[0]:
         if ciagi[i[0]][k:len(ciagi[i[0]])] == ciagi[i[1]][0:len(ciagi[i[1]]) - k]:
             ciagKoncowy += ("|"+ciagi[i[1]][len(ciagi[i[1]]) - k:len(ciagi[i[1]])])
             dodane = 1
+            ile+=1
             break
     if not(dodane):
         ciagKoncowy += ("|"+ciagi[i[1]])
         dodane = 1
-print("\n"+ ciagKoncowy, len(ciagKoncowy.replace("|","")))
+        ile+=1
+print("\n"+ ciagKoncowy, len(ciagKoncowy.replace("|","")), ile)
 
 print("\nKoszt takiej sekwencji od przodu to:",
       najkrotszaOgolnie[1] - len(najkrotszaOgolnie[0]))
@@ -121,7 +123,7 @@ trasaGotowa = []
 for i in trasa:
     trasaGotowa.append(i[::-1])
 trasaGotowa = (trasaGotowa, najkrotszaOgolnie[1])
-pierwsze = True
+ile = 1
 ciagKoncowy = ""
 pierwszyWierzcholek = trasaGotowa[0][0][0]
 ciagKoncowy += ciagi[pierwszyWierzcholek]
@@ -132,10 +134,12 @@ for i in trasaGotowa[0]:
         if ciagi[i[0]][k:len(ciagi[i[0]])] == ciagi[i[1]][0:len(ciagi[i[1]]) - k]:
             ciagKoncowy += ("|"+ciagi[i[1]][len(ciagi[i[1]]) - k:len(ciagi[i[1]])])
             dodane = 1
+            ile+=1
             break
     if not(dodane):
         ciagKoncowy += ("|"+ciagi[i[1]])
         dodane = 1
-print("\n"+ ciagKoncowy, len(ciagKoncowy.replace("|","")))
+        ile+=1
+print("\n"+ ciagKoncowy, len(ciagKoncowy.replace("|","")), ile)
 print("\nKoszt takiej sekwencji od tylu to:",
       najkrotszaOgolnie[1] - len(najkrotszaOgolnie[0]))
