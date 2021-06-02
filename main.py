@@ -78,10 +78,10 @@ potKonce = zsumujWartosciIPokazPotencjalne(przod, ciagi)
 poczatki = 1
 for i in potPoczatki:
     # print("sprawdzanie nukleotydu początkowego nr ", poczatki)
-    poczatki += 1
+    # poczatki += 1
     najkrotszaOgolnie = [[0], np.inf]
     ant_colony = AntColony(przod, 100, 20, 30, 0.8, alpha=5,
-                           beta=3, poczatek=i, ktoraStrona=1)
+                           beta=3, poczatek=i, ktoraStrona=1, maxDlugosc=209)
     najkrotsza = ant_colony.run()
     if najkrotsza[1] < najkrotszaOgolnie[1]:
         najkrotszaOgolnie = najkrotsza
@@ -105,15 +105,15 @@ for i in najkrotszaOgolnie[0]:
 print("\n"+ ciagKoncowy, len(ciagKoncowy.replace("|","")), ile)
 
 print("\nKoszt takiej sekwencji od przodu to:",
-      najkrotszaOgolnie[1] - len(najkrotszaOgolnie[0]))
+      najkrotszaOgolnie[1]+len(ciagi[pierwszyWierzcholek]))
 
 konce = 1
 for i in potKonce:
     # print("sprawdzanie nukleotydu koncowego nr ", konce)
-    konce += 1
+    # konce += 1
     najkrotszaOgolnie = [[0], np.inf]
     ant_colony = AntColony(tyl, 100, 20, 30, 0.8, alpha=5,
-                           beta=3, poczatek=i, ktoraStrona=-1)
+                           beta=3, poczatek=i, ktoraStrona=-1, maxDlugosc=209)
     najkrotsza = ant_colony.run()
     if najkrotsza[1] < najkrotszaOgolnie[1]:
         najkrotszaOgolnie = najkrotsza
@@ -142,4 +142,4 @@ for i in trasaGotowa[0]:
         ile+=1
 print("\n"+ ciagKoncowy, len(ciagKoncowy.replace("|","")), ile)
 print("\nKoszt takiej sekwencji od tylu to:",
-      najkrotszaOgolnie[1] - len(najkrotszaOgolnie[0]))
+      najkrotszaOgolnie[1]+len(ciagi[pierwszyWierzcholek]))

@@ -71,7 +71,8 @@ class AntColony(object):
                 print("Resetuje wartosci feromonow, a aktualny wierzcholek startowy to: ", self.poczatek)
             if powtorzenie == round(self.iteracje * 0.15)-1:
                 self.maxOstatniePowtorzenie = self.maxDlugosc
-                powtorzenie+=1
+                #powtorzenie+=1
+            # print(powtorzenie)
         return ogolnieNajkrotszaTrasa
 
     def wypuscFeromon(self, wszystkieSciezki, ileNajlepszychMrowek, shortest_path):
