@@ -5,7 +5,7 @@ kosztyDodatkowe = []
 
 
 def odczytajDane():
-    f = open("dane.txt", "r")
+    f = open("dane2.txt", "r")
     ciagi = []
     for x in f:
         ciagi.append(x.rstrip())
@@ -81,19 +81,26 @@ for i in potPoczatki:
     poczatki += 1
     najkrotszaOgolnie = [[0], np.inf]
     ant_colony = AntColony(przod, 100, 20, 30, 0.8, alpha=5,
-                           beta=2, poczatek=i, ktoraStrona=1)
+                           beta=3, poczatek=i, ktoraStrona=1)
     najkrotsza = ant_colony.run()
     if najkrotsza[1] < najkrotszaOgolnie[1]:
         najkrotszaOgolnie = najkrotsza
-    pierwsze = True
+pierwsze = True
+ciagKoncowy = ""
+pierwszyWierzcholek = najkrotszaOgolnie[0][0][0]
+ciagKoncowy += ciagi[pierwszyWierzcholek]
+# print(ciagKoncowy)
 for i in najkrotszaOgolnie[0]:
-    pierwsza = i[0]
-    druga = i[1]
-    if pierwsze:
-        print(ciagi[pierwsza], ciagi[druga], end=" ")
-        pierwsze = False
-    else:
-        print(ciagi[druga], end=" ")
+    dodane = 0
+    for k in range(len(ciagi[i[0]])):
+        if ciagi[i[0]][k:len(ciagi[i[0]])] == ciagi[i[1]][0:len(ciagi[i[1]]) - k]:
+            ciagKoncowy += ("|"+ciagi[i[1]][len(ciagi[i[1]]) - k:len(ciagi[i[1]])])
+            dodane = 1
+            break
+    if not(dodane):
+        ciagKoncowy += ("|"+ciagi[i[1]])
+        dodane = 1
+print("\n"+ ciagKoncowy, len(ciagKoncowy.replace("|","")))
 
 print("\nKoszt takiej sekwencji od przodu to:",
       najkrotszaOgolnie[1] - len(najkrotszaOgolnie[0]))
@@ -104,19 +111,31 @@ for i in potKonce:
     konce += 1
     najkrotszaOgolnie = [[0], np.inf]
     ant_colony = AntColony(tyl, 100, 20, 30, 0.8, alpha=5,
-                           beta=2, poczatek=i, ktoraStrona=-1)
+                           beta=3, poczatek=i, ktoraStrona=-1)
     najkrotsza = ant_colony.run()
     if najkrotsza[1] < najkrotszaOgolnie[1]:
         najkrotszaOgolnie = najkrotsza
+
+trasa = najkrotszaOgolnie[0][::-1]
+trasaGotowa = []
+for i in trasa:
+    trasaGotowa.append(i[::-1])
+trasaGotowa = (trasaGotowa, najkrotszaOgolnie[1])
 pierwsze = True
-for i in najkrotszaOgolnie[0]:
-    pierwsza = i[0]
-    druga = i[1]
-    if pierwsze:
-        print(ciagi[pierwsza], ciagi[druga], end=" ")
-        pierwsze = False
-    else:
-        print(ciagi[druga], end=" ")
-# print(najkrotsza[0])
+ciagKoncowy = ""
+pierwszyWierzcholek = trasaGotowa[0][0][0]
+ciagKoncowy += ciagi[pierwszyWierzcholek]
+# print(ciagKoncowy)
+for i in trasaGotowa[0]:
+    dodane = 0
+    for k in range(len(ciagi[i[0]])):
+        if ciagi[i[0]][k:len(ciagi[i[0]])] == ciagi[i[1]][0:len(ciagi[i[1]]) - k]:
+            ciagKoncowy += ("|"+ciagi[i[1]][len(ciagi[i[1]]) - k:len(ciagi[i[1]])])
+            dodane = 1
+            break
+    if not(dodane):
+        ciagKoncowy += ("|"+ciagi[i[1]])
+        dodane = 1
+print("\n"+ ciagKoncowy, len(ciagKoncowy.replace("|","")))
 print("\nKoszt takiej sekwencji od tylu to:",
       najkrotszaOgolnie[1] - len(najkrotszaOgolnie[0]))
