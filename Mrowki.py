@@ -5,7 +5,7 @@ from numpy.random import choice as np_choice
 
 class AntColony(object):
 
-    def __init__(self, odleglosci, ileMrowek, ileNajlepszychMrowek, iteracje, rozkladFeromonu, alpha=1, beta=1, poczatek=0, ktoraStrona=1):
+    def __init__(self, odleglosci, ileMrowek, ileNajlepszychMrowek, iteracje, rozkladFeromonu, alpha=1, beta=1, poczatek=0, ktoraStrona=1, maxDlugosc = np.inf):
         """
         Args:
             odleglosci (2D numpy.array) - macierz odlegosci
@@ -33,6 +33,8 @@ class AntColony(object):
         self.ktoraStrona = ktoraStrona
         self.parametrFeromonu = 0.1
         self.dodawanieFeromonu = 0.9 / self.iteracje
+        self.maxDlugosc = maxDlugosc
+        self.maxOstatniePowtorzenie = np.inf
 
     def run(self):
         powtorzenie = 0
@@ -67,6 +69,9 @@ class AntColony(object):
                 # print(najkrotszaTrasa)
                 self.znajdzNajlepszyPoczatek(najkrotszaTrasa[0])
                 print("Resetuje wartosci feromonow, a aktualny wierzcholek startowy to: ", self.poczatek)
+            if powtorzenie == round(self.iteracje * 0.15)-1:
+                self.maxOstatniePowtorzenie = self.maxDlugosc
+                powtorzenie+=1
         return ogolnieNajkrotszaTrasa
 
     def wypuscFeromon(self, wszystkieSciezki, ileNajlepszychMrowek, shortest_path):
