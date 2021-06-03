@@ -3,7 +3,7 @@ from Mrowki import AntColony
 
 
 def odczytajDane():
-    f = open("dane2.txt", "r")
+    f = open("danep.txt", "r")
     ciagi = []
     for x in f:
         ciagi.append(x.rstrip())
@@ -53,6 +53,8 @@ def macierzeOdlegosci(ciagi):
 
 
 def zsumujWartosciIPokazPotencjalne(macierz, ciagi):
+    maxIlosc = 3
+    ile = 0
     zZerami = np.zeros((len(ciagi), len(ciagi)))
     for i in range(len(macierz)):
         for j in range(len(macierz[i])):
@@ -62,7 +64,8 @@ def zsumujWartosciIPokazPotencjalne(macierz, ciagi):
     potencjalne = []
     maxSum = max(sumy)
     for i in range(len(sumy)):
-        if sumy[i] > maxSum - maxSum * 0.001:
+        if sumy[i] > maxSum - maxSum * 0.001 and ile<maxIlosc:
+            ile+=1
             potencjalne.append(i)
     return potencjalne
 
@@ -78,7 +81,7 @@ for i in potPoczatki:
     # poczatki += 1
     najkrotszaOgolnie = [[0], np.inf]
     ant_colony = AntColony(przod, 100, 20, 30, 0.8, alpha=5,
-                           beta=3, poczatek=i, ktoraStrona=1, maxDlugosc=409)
+                           beta=3, poczatek=i, ktoraStrona=1, maxDlugosc=209)
     najkrotsza = ant_colony.run()
     if len(najkrotsza[0]) > len(najkrotszaOgolnie[0]):
         najkrotszaOgolnie = najkrotsza
@@ -104,7 +107,7 @@ for i in najkrotszaOgolnie[0]:
 print("\n"+ ciagKoncowy)
 print("\nDługość tej sekwencji to(n): ", len(ciagKoncowy.replace("|","")))
 print("Liczba nukleotydów w tej sekwencji to:", ile, "\n")
-print(najkrotszaOgolnie)
+# print(najkrotszaOgolnie)
 # print("\nKoszt takiej sekwencji od przodu to:",
 #       najkrotszaOgolnie[1]+len(ciagi[pierwszyWierzcholek]))
 
@@ -114,7 +117,7 @@ for i in potKonce:
     # konce += 1
     najkrotszaOgolnie = [[0], np.inf]
     ant_colony = AntColony(tyl, 100, 20, 30, 0.8, alpha=5,
-                           beta=3, poczatek=i, ktoraStrona=-1, maxDlugosc=409)
+                           beta=3, poczatek=i, ktoraStrona=-1, maxDlugosc=209)
     najkrotsza = ant_colony.run()
     if len(najkrotsza[0]) > len(najkrotszaOgolnie[0]):
         najkrotszaOgolnie = najkrotsza

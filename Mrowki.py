@@ -85,7 +85,7 @@ class AntColony(object):
                 #powtorzenie+=1
             # print(powtorzenie)
         # print(len(ogolnieNajkrotszaTrasa[0]),ogolnieNajkrotszaTrasa[1],"\n\n\n")
-        print(ogolnieNajkrotszaTrasa)
+        # print(ogolnieNajkrotszaTrasa)
         return ogolnieNajkrotszaTrasa
 
     def utnijKonceDoN(self, wszystkieSciezki):
