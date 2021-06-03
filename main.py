@@ -80,7 +80,9 @@ for i in potPoczatki:
     ant_colony = AntColony(przod, 100, 20, 30, 0.8, alpha=5,
                            beta=3, poczatek=i, ktoraStrona=1, maxDlugosc=409)
     najkrotsza = ant_colony.run()
-    if najkrotsza[1] < najkrotszaOgolnie[1]:
+    if len(najkrotsza[0]) > len(najkrotszaOgolnie[0]):
+        najkrotszaOgolnie = najkrotsza
+    elif len(najkrotsza[0]) == len(najkrotszaOgolnie[0]) and najkrotsza[1]<najkrotszaOgolnie[1]:
         najkrotszaOgolnie = najkrotsza
 ile = 1
 ciagKoncowy = ""
@@ -99,10 +101,12 @@ for i in najkrotszaOgolnie[0]:
         ciagKoncowy += ("|"+ciagi[i[1]])
         dodane = 1
         ile+=1
-print("\n"+ ciagKoncowy, len(ciagKoncowy.replace("|","")), ile)
-
-print("\nKoszt takiej sekwencji od przodu to:",
-      najkrotszaOgolnie[1]+len(ciagi[pierwszyWierzcholek]))
+print("\n"+ ciagKoncowy)
+print("\nDługość tej sekwencji to(n): ", len(ciagKoncowy.replace("|","")))
+print("Liczba nukleotydów w tej sekwencji to:", ile, "\n")
+print(najkrotszaOgolnie)
+# print("\nKoszt takiej sekwencji od przodu to:",
+#       najkrotszaOgolnie[1]+len(ciagi[pierwszyWierzcholek]))
 
 konce = 1
 for i in potKonce:
@@ -112,8 +116,12 @@ for i in potKonce:
     ant_colony = AntColony(tyl, 100, 20, 30, 0.8, alpha=5,
                            beta=3, poczatek=i, ktoraStrona=-1, maxDlugosc=409)
     najkrotsza = ant_colony.run()
-    if najkrotsza[1] < najkrotszaOgolnie[1]:
+    if len(najkrotsza[0]) > len(najkrotszaOgolnie[0]):
         najkrotszaOgolnie = najkrotsza
+    elif len(najkrotsza[0]) == len(najkrotszaOgolnie[0]) and najkrotsza[1]<najkrotszaOgolnie[1]:
+        najkrotszaOgolnie = najkrotsza
+    # if najkrotsza[1] < najkrotszaOgolnie[1]:
+    #     najkrotszaOgolnie = najkrotsza
 
 trasa = najkrotszaOgolnie[0][::-1]
 trasaGotowa = []
@@ -137,6 +145,8 @@ for i in trasaGotowa[0]:
         ciagKoncowy += ("|"+ciagi[i[1]])
         dodane = 1
         ile+=1
-print("\n"+ ciagKoncowy, len(ciagKoncowy.replace("|","")), ile)
-print("\nKoszt takiej sekwencji od tylu to:",
-      najkrotszaOgolnie[1]+len(ciagi[pierwszyWierzcholek]))
+print("\n"+ ciagKoncowy)
+print("\nDługość tej sekwencji to(n): ", len(ciagKoncowy.replace("|","")))
+print("Liczba nukleotydów w tej sekwencji to:", ile, "\n")
+# print("\nKoszt takiej sekwencji od tylu to:",
+      # najkrotszaOgolnie[1]+len(ciagi[pierwszyWierzcholek]))

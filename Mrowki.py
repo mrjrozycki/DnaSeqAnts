@@ -1,6 +1,7 @@
 import random as rn
 import numpy as np
 from numpy.random import choice as np_choice
+import sys
 
 
 class AntColony(object):
@@ -51,11 +52,13 @@ class AntColony(object):
                 shortest_path=najkrotszaTrasa)
             gotowe = self.utnijKonceDoN(wszystkieSciezki)
             najdluzsza = max(gotowe, key=lambda x: len(x[0]))
+            # print(najdluzsza)
             najdluzszeSciezki = []
             for k in gotowe:
                 if len(k[0]) == len(najdluzsza[0]):
                     najdluzszeSciezki.append(k)
             # print(wszystkieSciezki)
+            # print(najdluzszeSciezki)
             najkrotszaTrasa = min(najdluzszeSciezki, key=lambda x: x[1])
             # print(poprzedniaNajkrotsza >= najkrotszaTrasa[1]-najkrotszaTrasa[1]*0.1, poprzedniaNajkrotsza <= najkrotszaTrasa[1]+najkrotszaTrasa[1]*0.1)
             if poprzedniaNajkrotsza >= najkrotszaTrasa[1] - najkrotszaTrasa[1] * 0.1 and poprzedniaNajkrotsza <= najkrotszaTrasa[1] + najkrotszaTrasa[1] * 0.1:
@@ -64,7 +67,9 @@ class AntColony(object):
             # print(najkrotszaTrasa)
             print("Obliczono juz: {:.2f}% algorytmu".format(
                 (i + 1) * 100 / self.iteracje))
-            if najkrotszaTrasa[1] < ogolnieNajkrotszaTrasa[1]:
+            if len(najkrotszaTrasa[0]) > len(ogolnieNajkrotszaTrasa[0]):
+                ogolnieNajkrotszaTrasa = najkrotszaTrasa
+            elif len(najkrotszaTrasa[0]) == len(ogolnieNajkrotszaTrasa[0]) and najkrotszaTrasa[1]<ogolnieNajkrotszaTrasa[1]:
                 ogolnieNajkrotszaTrasa = najkrotszaTrasa
             self.feromon = self.feromon * self.rozkladFeromonu
             if powtorzenie == round(self.iteracje * 0.15):
@@ -79,6 +84,8 @@ class AntColony(object):
                 self.maxOstatniePowtorzenie = self.maxDlugosc
                 #powtorzenie+=1
             # print(powtorzenie)
+        # print(len(ogolnieNajkrotszaTrasa[0]),ogolnieNajkrotszaTrasa[1],"\n\n\n")
+        print(ogolnieNajkrotszaTrasa)
         return ogolnieNajkrotszaTrasa
 
     def utnijKonceDoN(self, wszystkieSciezki):
@@ -87,16 +94,22 @@ class AntColony(object):
             poprawiona = False
             l = 1
             dlugosc = self.podajOdlegloscSciezki(i[0])
+            dlugosc+=10
             if dlugosc<=self.maxDlugosc:
                 poprawiona = True
                 gotowe.append(i)
+                # print(dlugosc)
             else:
                 while not(poprawiona):
                     x = i[0][:-l]
                     dlugosc = self.podajOdlegloscSciezki(x)
+                    dlugosc+=10
+                    # print(dlugosc)
                     l+=1
+                    # sys.exit(1)
                     if dlugosc<=self.maxDlugosc:
                         poprawiona = True
+                        # print(dlugosc)
                 gotowe.append((x, dlugosc))
         # print(gotowe)
         return gotowe
