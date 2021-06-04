@@ -57,8 +57,6 @@ class AntColony(object):
             for k in gotowe:
                 if len(k[0]) == len(najdluzsza[0]):
                     najdluzszeSciezki.append(k)
-            # print(wszystkieSciezki)
-            # print(najdluzszeSciezki)
             najkrotszaTrasa = min(najdluzszeSciezki, key=lambda x: x[1])
             # print(poprzedniaNajkrotsza >= najkrotszaTrasa[1]-najkrotszaTrasa[1]*0.1, poprzedniaNajkrotsza <= najkrotszaTrasa[1]+najkrotszaTrasa[1]*0.1)
             if poprzedniaNajkrotsza >= najkrotszaTrasa[1] - najkrotszaTrasa[1] * 0.1 and poprzedniaNajkrotsza <= najkrotszaTrasa[1] + najkrotszaTrasa[1] * 0.1:
@@ -77,16 +75,7 @@ class AntColony(object):
                 # for i in range(len(self.feromon)):
                 #     self.feromon[i] += 0.25
                 self.feromon = np.ones(self.odleglosci.shape) / len(self.odleglosci)
-                # print(najkrotszaTrasa)
                 self.znajdzNajlepszyPoczatek(najkrotszaTrasa[0])
-                # print("Resetuje wartosci feromonow, a aktualny wierzcholek startowy to: ", self.poczatek)
-            if powtorzenie == round(self.iteracje * 0.15)-1:
-                self.maxOstatniePowtorzenie = self.maxDlugosc
-                #powtorzenie+=1
-            # print(powtorzenie)
-        # print(len(ogolnieNajkrotszaTrasa[0]),ogolnieNajkrotszaTrasa[1],"\n\n\n")
-        # print(ogolnieNajkrotszaTrasa)
-        # print(self.podajOdlegloscSciezki(ogolnieNajkrotszaTrasa[0]))
         return ogolnieNajkrotszaTrasa
 
     def utnijKonceDoN(self, wszystkieSciezki):
