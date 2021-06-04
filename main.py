@@ -1,10 +1,10 @@
 import numpy as np
 from Mrowki import AntColony
 
-plik = "neglos/58.300-60"
+plik = "neglos/10.500-100"
 rozmiarN = int(plik[plik.find(".")+1:plik.find(".")+4])+9
 dlugosc = rozmiarN
-mrowki = 200
+mrowki = int(0.4*rozmiarN)
 specjalisci = int(0.3*mrowki)
 iteracje = 30
 alpha = 5
@@ -30,24 +30,8 @@ def policzOdelegloscPrzod(a, b):
         if a[i:len(a)] == b[0:len(b) - i]:
             # print(i)
             break
-    # if i == 9:
-    #     return i + 10
-    # else:
     return i
 
-
-def policzOdelegloscTyl(a, b):
-    if a == b:
-        return np.inf
-    for i in range(len(a)):
-        # print(a[0:len(a)-i],"\n",b[i:len(b)])
-        if a[0:len(a) - i] == b[i:len(b)]:
-            # print(i)
-            break
-    # if i == 9:
-    #     return i + 10
-    # else:
-    return i
 
 
 def macierzeOdlegosci(ciagi):
@@ -63,7 +47,7 @@ def macierzeOdlegosci(ciagi):
 
 
 def zsumujWartosciIPokazPotencjalne(macierz, ciagi):
-    maxIlosc = 2
+    maxIlosc = 1
     ile = 0
     zZerami = np.zeros((len(ciagi), len(ciagi)))
     for i in range(len(macierz)):
@@ -99,14 +83,24 @@ def odpalIPrintuj(ciagi, macierz, potencjalne, strona):
             dodane = 0
             for k in range(len(ciagi[i[0]])):
                 if ciagi[i[0]][k:len(ciagi[i[0]])] == ciagi[i[1]][0:len(ciagi[i[1]]) - k]:
-                    ciagKoncowy += (ciagi[i[1]][len(ciagi[i[1]]) - k:len(ciagi[i[1]])])
+                    ciagKoncowy += ("|"+ciagi[i[1]][len(ciagi[i[1]]) - k:len(ciagi[i[1]])])
                     dodane = 1
                     ile+=1
                     break
             if not(dodane):
-                ciagKoncowy += (ciagi[i[1]])
+                ciagKoncowy += ("|"+ciagi[i[1]])
                 dodane = 1
                 ile+=1
+        # koszt = 10
+        # print("0"*10,end = "")
+        # print("|",end="")
+        # for k in najkrotszaOgolnie[0]:
+        #     # print(k)
+        #     print(str(policzOdelegloscPrzod(ciagi[k[0]], ciagi[k[1]]))*policzOdelegloscPrzod(ciagi[k[0]], ciagi[k[1]]), end="")
+        #     print("|",end="")
+        #     koszt += policzOdelegloscPrzod(ciagi[k[0]], ciagi[k[1]])
+        # print("\n",koszt)
+        # print(koszt)
         # print("\n"+ ciagKoncowy)
         # print("\nDługość tej sekwencji to(n): ", len(ciagKoncowy.replace("|","")))
         # print("Liczba nukleotydów w tej sekwencji to:", ile, "\n")
@@ -125,17 +119,29 @@ def odpalIPrintuj(ciagi, macierz, potencjalne, strona):
             dodane = 0
             for k in range(len(ciagi[i[0]])):
                 if ciagi[i[0]][k:len(ciagi[i[0]])] == ciagi[i[1]][0:len(ciagi[i[1]]) - k]:
-                    ciagKoncowy += (ciagi[i[1]][len(ciagi[i[1]]) - k:len(ciagi[i[1]])])
+                    ciagKoncowy += ("|"+ciagi[i[1]][len(ciagi[i[1]]) - k:len(ciagi[i[1]])])
                     dodane = 1
                     ile+=1
                     break
             if not(dodane):
-                ciagKoncowy += (ciagi[i[1]])
+                ciagKoncowy += ("|"+ciagi[i[1]])
                 dodane = 1
                 ile+=1
+        # koszt = 10
+        # print("\n\n")
+        # print("0"*10,end = "")
+        # print("|",end="")
+        # for k in trasaGotowa[0]:
+        #     # print(k)
+        #     print(str(policzOdelegloscPrzod(ciagi[k[0]], ciagi[k[1]]))*policzOdelegloscPrzod(ciagi[k[0]], ciagi[k[1]]), end="")
+        #     print("|",end="")
+        #     koszt += policzOdelegloscPrzod(ciagi[k[0]], ciagi[k[1]])
+        # print("\n",koszt)
         # print("\n"+ ciagKoncowy)
         # print("\nDługość tej sekwencji to(n): ", len(ciagKoncowy.replace("|","")))
         # print("Liczba nukleotydów w tej sekwencji to:", ile, "\n")
+
+
     return ciagKoncowy, len(ciagKoncowy.replace("|","")), ile
 
 
