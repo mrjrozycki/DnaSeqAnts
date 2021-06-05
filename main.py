@@ -1,10 +1,10 @@
 import numpy as np
 from Mrowki import AntColony
 
-plik = "neglos/10.500-100"
+plik = "negpow/34.500-32"
 rozmiarN = int(plik[plik.find(".")+1:plik.find(".")+4])+9
 dlugosc = rozmiarN
-mrowki = int(0.4*rozmiarN)
+mrowki = int(0.3*rozmiarN)
 specjalisci = int(0.3*mrowki)
 iteracje = 30
 alpha = 5
@@ -71,7 +71,7 @@ def odpalIPrintuj(ciagi, macierz, potencjalne, strona):
         najkrotsza = ant_colony.run()
         if len(najkrotsza[0]) > len(najkrotszaOgolnie[0]):
             najkrotszaOgolnie = najkrotsza
-        elif len(najkrotsza[0]) == len(najkrotszaOgolnie[0]) and najkrotsza[1]<najkrotszaOgolnie[1]:
+        elif len(najkrotsza[0]) == len(najkrotszaOgolnie[0]) and najkrotsza[1]>najkrotszaOgolnie[1] and najkrotsza[1]<=dlugosc:
             najkrotszaOgolnie = najkrotsza
     if strona == 1:
         ile = 1

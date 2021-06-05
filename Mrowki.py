@@ -66,7 +66,7 @@ class AntColony(object):
             print("Obliczono juz: {:.2f}% algorytmu".format((i + 1) * 100 / self.iteracje))
             if len(najkrotszaTrasa[0]) > len(ogolnieNajkrotszaTrasa[0]):
                 ogolnieNajkrotszaTrasa = najkrotszaTrasa
-            elif len(najkrotszaTrasa[0]) == len(ogolnieNajkrotszaTrasa[0]) and najkrotszaTrasa[1]<ogolnieNajkrotszaTrasa[1]:
+            elif len(najkrotszaTrasa[0]) == len(ogolnieNajkrotszaTrasa[0]) and najkrotszaTrasa[1]>ogolnieNajkrotszaTrasa[1] and najkrotszaTrasa[1]<=self.maxDlugosc:
                 ogolnieNajkrotszaTrasa = najkrotszaTrasa
             self.feromon = self.feromon * self.rozkladFeromonu
             if powtorzenie == round(self.iteracje * 0.15):
