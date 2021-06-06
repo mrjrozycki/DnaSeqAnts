@@ -42,7 +42,7 @@ class AntColony(object):
         poprzedniaNajkrotsza = 0
         najkrotszaTrasa = None
         ogolnieNajkrotszaTrasa = ("placeholder", np.inf)
-        print("Aktualny wierzcholek startowy to: ", self.poczatek)
+        # print("Aktualny wierzcholek startowy to: ", self.poczatek)
         for i in range(self.iteracje):
             # print("Aktualny wierzcholek startowy to: ", self.poczatek)
             wszystkieSciezki = self.wygenerujWszystkieSciezki()
@@ -63,7 +63,7 @@ class AntColony(object):
                 powtorzenie += 1
             poprzedniaNajkrotsza = najkrotszaTrasa[1]
             # print(najkrotszaTrasa)
-            print("Obliczono juz: {:.2f}% algorytmu".format((i + 1) * 100 / self.iteracje))
+            # print("Obliczono juz: {:.2f}% algorytmu".format((i + 1) * 100 / self.iteracje))
             if len(najkrotszaTrasa[0]) > len(ogolnieNajkrotszaTrasa[0]):
                 ogolnieNajkrotszaTrasa = najkrotszaTrasa
             elif len(najkrotszaTrasa[0]) == len(ogolnieNajkrotszaTrasa[0]) and najkrotszaTrasa[1]>ogolnieNajkrotszaTrasa[1] and najkrotszaTrasa[1]<=self.maxDlugosc:
@@ -113,10 +113,11 @@ class AntColony(object):
     def podajOdlegloscSciezki(self, path):
         pelenDystans = 0
         for x in path:
-            if self.odleglosci[x] != 9:
-                pelenDystans += self.odleglosci[x]
-            elif self.odleglosci[x] == 9:
-                pelenDystans += self.odleglosci[x]+1
+            pelenDystans += self.odleglosci[x]
+            # if self.odleglosci[x] != 9:
+            #     pelenDystans += self.odleglosci[x]
+            # elif self.odleglosci[x] == 9:
+            #     pelenDystans += self.odleglosci[x]+1
         return pelenDystans
 
     def wygenerujWszystkieSciezki(self):

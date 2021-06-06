@@ -1,12 +1,14 @@
 import numpy as np
 from Mrowki import AntColony
-
-plik = "negpow/34.500-32"
+from random import randint
+import os
+import time
+plik = "neglos/55.400-160"
 rozmiarN = int(plik[plik.find(".")+1:plik.find(".")+4])+9
 dlugosc = rozmiarN
-mrowki = int(0.3*rozmiarN)
+mrowki = int(0.5*rozmiarN)
 specjalisci = int(0.3*mrowki)
-iteracje = 30
+iteracje = 10
 alpha = 5
 beta = 3
 wspolczynnikFeromonu = 0.8
@@ -25,7 +27,7 @@ def odczytajDane():
 def policzOdelegloscPrzod(a, b):
     if a == b:
         return np.inf
-    for i in range(len(a)):
+    for i in range(len(a)+1):
         # print(a[i:len(a)],"\n",b[0:len(b)-i])
         if a[i:len(a)] == b[0:len(b) - i]:
             # print(i)
@@ -119,21 +121,31 @@ def odpalIPrintuj(ciagi, macierz, potencjalne, strona):
 
     return ciagKoncowy, len(ciagKoncowy.replace("|","")), ile
 
+folder = "pozprze"
 
-# for i in range(10):
-#     specjalisci=10+i*10
-ciagi = odczytajDane()
-przod, tyl = macierzeOdlegosci(ciagi)
-potPoczatki = zsumujWartosciIPokazPotencjalne(tyl, ciagi)
-potKonce = zsumujWartosciIPokazPotencjalne(przod, ciagi)
-ciagP, nP, slowaP = odpalIPrintuj(ciagi, przod, potPoczatki, 1)
-ciagK, nK, slowaK = odpalIPrintuj(ciagi, tyl, potKonce, -1)
-# print(specjalisci)
-print("\n\nSzukanie od przodu:")
-print("\n"+ ciagP)
-print("\nDługość tej sekwencji to(n): ", nP)
-print("Liczba nukleotydów w tej sekwencji to:", slowaP, "\n")
-print("\n\nSzukanie od konca:")
-print("\n"+ ciagK)
-print("\nDługość tej sekwencji to(n): ", nK)
-print("Liczba nukleotydów w tej sekwencji to:", slowaK, "\n")
+for i in os.listdir(folder):
+    plik = folder+"/"+i
+    rozmiarN = int(plik[plik.find(".")+1:plik.find(".")+4])+9
+    dlugosc = rozmiarN
+    # alpha = randint(1,10)
+    # beta = randint(1,10)
+    # print("Wartość alpha: ", alpha, "\nWartość beta: ", beta)
+    print(plik)
+    start = time.time()
+    ciagi = odczytajDane()
+    przod, tyl = macierzeOdlegosci(ciagi)
+    potPoczatki = zsumujWartosciIPokazPotencjalne(tyl, ciagi)
+    potKonce = zsumujWartosciIPokazPotencjalne(przod, ciagi)
+    ciagP, nP, slowaP = odpalIPrintuj(ciagi, przod, potPoczatki, 1)
+    ciagK, nK, slowaK = odpalIPrintuj(ciagi, tyl, potKonce, -1)
+    # print(specjalisci)
+    end = time.time()
+    print(end-start)
+    print("\n\nSzukanie od przodu:")
+    print("\n"+ ciagP)
+    print("\nDługość tej sekwencji to(n): ", nP)
+    print("Liczba nukleotydów w tej sekwencji to:", slowaP, "\n")
+    print("\n\nSzukanie od konca:")
+    print("\n"+ ciagK)
+    print("\nDługość tej sekwencji to(n): ", nK)
+    print("Liczba nukleotydów w tej sekwencji to:", slowaK, "\n")
