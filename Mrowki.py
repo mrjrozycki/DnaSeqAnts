@@ -146,6 +146,7 @@ class AntColony(object):
         feromon = np.copy(feromon)
         feromon[list(odwiedzone)] = 0
 
+        # print(type(dist))
         row = feromon ** self.alpha * ((1.0 / dist) ** self.beta)
 
         norm_row = row / row.sum()

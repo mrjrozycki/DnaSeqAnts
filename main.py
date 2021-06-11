@@ -121,31 +121,31 @@ def odpalIPrintuj(ciagi, macierz, potencjalne, strona):
 
     return ciagKoncowy, len(ciagKoncowy.replace("|","")), ile
 
-folder = "pozprze"
-
-for i in os.listdir(folder):
-    plik = folder+"/"+i
-    rozmiarN = int(plik[plik.find(".")+1:plik.find(".")+4])+9
-    dlugosc = rozmiarN
-    # alpha = randint(1,10)
-    # beta = randint(1,10)
-    # print("Wartość alpha: ", alpha, "\nWartość beta: ", beta)
-    print(plik)
-    start = time.time()
-    ciagi = odczytajDane()
-    przod, tyl = macierzeOdlegosci(ciagi)
-    potPoczatki = zsumujWartosciIPokazPotencjalne(tyl, ciagi)
-    potKonce = zsumujWartosciIPokazPotencjalne(przod, ciagi)
-    ciagP, nP, slowaP = odpalIPrintuj(ciagi, przod, potPoczatki, 1)
-    ciagK, nK, slowaK = odpalIPrintuj(ciagi, tyl, potKonce, -1)
-    # print(specjalisci)
-    end = time.time()
-    print(end-start)
-    print("\n\nSzukanie od przodu:")
-    print("\n"+ ciagP)
-    print("\nDługość tej sekwencji to(n): ", nP)
-    print("Liczba nukleotydów w tej sekwencji to:", slowaP, "\n")
-    print("\n\nSzukanie od konca:")
-    print("\n"+ ciagK)
-    print("\nDługość tej sekwencji to(n): ", nK)
-    print("Liczba nukleotydów w tej sekwencji to:", slowaK, "\n")
+folder = "neglos"
+i = "18.200-40"
+# for i in os.listdir(folder):
+plik = folder+"/"+i
+rozmiarN = int(plik[plik.find(".")+1:plik.find(".")+4])+9
+dlugosc = rozmiarN
+# alpha = randint(1,10)
+# beta = randint(1,10)
+# print("Wartość alpha: ", alpha, "\nWartość beta: ", beta)
+print(plik)
+start = time.time()
+ciagi = odczytajDane()
+przod, tyl = macierzeOdlegosci(ciagi)
+potPoczatki = zsumujWartosciIPokazPotencjalne(tyl, ciagi)
+potKonce = zsumujWartosciIPokazPotencjalne(przod, ciagi)
+ciagP, nP, slowaP = odpalIPrintuj(ciagi, przod, potPoczatki, 1)
+ciagK, nK, slowaK = odpalIPrintuj(ciagi, tyl, potKonce, -1)
+# print(specjalisci)
+end = time.time()
+print(end-start)
+print("\n\nSzukanie od przodu:")
+print("\n"+ ciagP)
+print("\nDługość tej sekwencji to(n): ", nP)
+print("Liczba nukleotydów w tej sekwencji to:", slowaP, "\n")
+print("\n\nSzukanie od konca:")
+print("\n"+ ciagK)
+print("\nDługość tej sekwencji to(n): ", nK)
+print("Liczba nukleotydów w tej sekwencji to:", slowaK, "\n")
